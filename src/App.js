@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { abbottFreeStyleLibre, minimed600 } from "./drivers";
 
 function App() {
+  const [isFslDisabled, setIsFslDisabled] = React.useState(false);
+  const [isMinimedDisabled, setMinimedDisabled] = React.useState(false);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button
+        onClick={async () => {
+          setIsFslDisabled(true);
+          console.log(await abbottFreeStyleLibre());
+          setIsFslDisabled(false);
+        }}
+        disabled={isFslDisabled}
+      >
+        Freestyle Libre
+      </button>
+      <button
+        onClick={() => {
+          setMinimedDisabled(true);
+          minimed600();
+          setMinimedDisabled(false);
+        }}
+        disabled={isMinimedDisabled}
+      >
+        MiniMed 640G
+      </button>
     </div>
   );
 }
